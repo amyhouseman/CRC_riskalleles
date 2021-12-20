@@ -1,0 +1,56 @@
+##BASH###
+#Find and retrieve the 205 RSids from the COIN Chromosome data files. Then make a textfile and place the outputs here.
+grep -wf all205rsid.txt COIN* >> ExtractedSNPs/extractedSNPs.txt
+
+#Find which of the 205 are present and which are missing from the COIN data (Copy text file into excel and get the 205 list and do conditional formatting for unique RSids).
+#rs201395236 & rs9271363 not in COIN chromosome info data.
+#rs2732875 = on the X chromosome, and COIN doesn't have that data.
+
+###Rstudio###
+#Import the 202 SNPs in the info score chromosome files.
+info_extracted_202edit <- read.csv("/media/amyhouseman/9C107AA7107A87D2/Cardiff/PhD_Project/Chris_alleles/Chrm_info/Chrm_info_202alleles/info_extracted_202edit.txt", sep="")
+View(info_extracted_202edit)
+
+#Import the 202 SNPs in the MAF files.
+MAF_202_edit <- read.csv("/media/amyhouseman/9C107AA7107A87D2/Cardiff/PhD_Project/Chris_alleles/MAF_score/MAF_202/MAF_202_edit/MAF_202_edit.txt", sep="")
+View(MAF_202_edit)
+
+#Count the amount of info scores above 0.70.
+infodata <- info_extracted_202edit
+infoscore_above070 <- infodata$info > 0.70
+sum(infoscore_above070)
+
+#Count the amount of info scores below 0.70.
+infoscore_below070 <- infodata$info < 0.70
+sum(infoscore_below70)
+
+#Count the amount of MAF above 0.01.
+MAFdata<-MAF_202_edit
+MAFscore_above001 <- MAFdata$MAF > 0.01
+sum(MAFscore_above001)
+
+#Count the amount of MAF below 0.01.
+MAFscore_below001 <- MAFdata$MAF < 0.01
+sum(MAFscore_below001)
+
+#For converting the variables to dataframes.
+install.packages("dplyr")
+library("dplyr")
+
+#Create a dataframe for the MAFdata of the MAF scores of > 0.01 <
+over001=filter(MAFdata,MAF>0.01)
+under001=filter(MAFdata,MAF<0.01)
+
+#Create a dataframe for the infodata of the info score of > 0.70 <
+over070=filter(infodata,info>0.70)
+under070=filter(infodata,info<0.70)
+
+#For converting the dataframes to excel documents (This will occur in the getwd()).
+install.packages("writexl")
+library(writexl) 
+
+write_xlsx(over001, "over001.xlsx")
+write_xlsx(under001, "under001.xlsx")
+
+write_xlsx(over070, "over070.xlsx")
+write_xlsx(under070, "under070.xlsx")
