@@ -8,10 +8,7 @@
 # --recode A = Recode these SNPs under an additive model, and output (--output) this into a file named plink_additive_output.
 
 #Output is a .log file, .nosex file, .nosex file for ambiguous sex, and .raw file.
-#stdout is:
 
-
-##Problem: the COIN_ALL_CHR_imputed_1948 doesn't contain all of the 181 SNPS? How is this possible?
 
 ##Import the COIN_DATA tsv file into R
 > COIN_DATA <- read.delim("/media/amyhouseman/9C107AA7107A87D2/Cardiff/PhD_Project/Chris_alleles/PLINK/COIN_DATA.tsv")
