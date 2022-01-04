@@ -1,7 +1,7 @@
 ## Download PLINK 1.9 and unzip COIN data.
 
 ## Create a text file with all of the usable loci post QC. Labelled 181_QC_txt.
-./plink --bfile COIN_ALL_CHR_imputed_1948 --extract 181_QC_txt --recode A --out plink_additive_output
+./plink --bfile maf_1_info_7_for_paper --extract 181_QC_txt --recode A --out plink_additive_output_AMY
 
 #./ = run plink
 # --bfile = Using the following input bfile extract (--extract) the SNPs in the 181_QC_txt file.
@@ -10,27 +10,6 @@
 #Output is a .log file, .nosex file, .nosex file for ambiguous sex, and .raw file.
 #stdout is:
 
-./plink --bfile COIN_ALL_CHR_imputed_1948 --extract 181_QC_txt --recode A --out plink_additive_output
-PLINK v1.90b6.24 64-bit (6 Jun 2021)           www.cog-genomics.org/plink/1.9/
-(C) 2005-2021 Shaun Purcell, Christopher Chang   GNU General Public License v3
-Logging to plink_additive_output.log.
-Options in effect:
-  --bfile COIN_ALL_CHR_imputed_1948
-  --extract 181_QC_txt
-  --out plink_additive_output
-  --recode A
-
-5879 MB RAM detected; reserving 2939 MB for main workspace.
-14717816 variants loaded from .bim file.
-1948 people (0 males, 0 females, 1948 ambiguous) loaded from .fam.
-Ambiguous sex IDs written to plink_additive_output.nosex .
---extract: 81 variants remaining.
-Using 1 thread (no multithreaded calculations invoked).
-Before main variant filters, 1948 founders and 0 nonfounders present.
-Calculating allele frequencies... done.
-Total genotyping rate is 0.993105.
-81 variants and 1948 people pass filters and QC.
-Note: No phenotypes present.
 
 ##Problem: the COIN_ALL_CHR_imputed_1948 doesn't contain all of the 181 SNPS? How is this possible?
 
