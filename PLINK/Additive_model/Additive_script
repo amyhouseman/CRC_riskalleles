@@ -1,7 +1,0 @@
-## Download PLINK 1.9 and unzip COIN data.
-
-## Create a text file with all of the usable loci post QC. Labelled 181_QC_txt.
-./plink --bfile COIN_ALL_CHR_imputed_1948 --extract 181_QC_txt --recode A --out plink_additive_output
-
-#Output is a .log file, .nosex file, and .raw file.
-##Problem: the COIN_ALL_CHR_imputed_1948 doesn't contain all of the 181 SNPS? How is this possible?
