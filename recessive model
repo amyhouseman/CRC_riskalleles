@@ -1,0 +1,58 @@
+################# Recessive model ###############
+
+install.packages("car")
+library(car)
+
+##===NEED TO FIGURE HOW TO AUTOMATE SO THAT IT WILL RECODE ALL RSID IN ONE GO.
+
+
+merged_COIN_plink$rs9614460_G <- car:::recode(merged_COIN_plink$rs9614460_G, "1=0; 2=1")
+
+#Save the new dataframe as under a different name (recessive_merged_COIN_plink)
+
+#### Run the coxph again on the recoded SNPs and look at the p values of the ones that were significant before.
+coxph(Surv(recessive_merged_COIN_plink$SURVIVAL, merged_COIN_plink$EVENT) ~ rs2807367_G  +  PS + RS + WBC + PLT + ALKP + NMS + MLIV + RC + RJ + SC + R + MG + LC + TC + SA + METSTIME + METSCAT, data = merged_COIN_plink)
+
+RSIDcols_recessive <- colnames(recessive_merged_COIN_plink[,7:187]) 
+View(RSIDcols_recessive)
+
+# Define formulas
+recessive_formulas <- sapply(RSIDcols_recessive, 
+                   function(x) as.formula(paste('Surv(SURVIVAL, EVENT) ~ ', paste(x, "+ PS + RS + WBC +  PLT + ALKP + NMS + MLIV + RC + RJ + SC + R + MG + LC + TC + SA + METSTIME + METSCAT"))))
+
+# Run models
+recessive_models <- lapply(recessive_formulas, function(x) {coxph(x, data = recessive_merged_COIN_plink)})
+
+
+names(recessive_models) <- RSIDcols # rename list elements to RSID name
+
+#Or if you look do View(models) you will see the new frame appear with all of the coxph results for all RSID.
+View(recessive_models)
+#rs11255841_A
+#rs16892766_C
+#rs117079142_A
+#rs4444073_C
+#rs9924886_C
+#rs280097_C
+#rs1497077_T
+#rs13086367_G
+
+recessive_models[["rs13086367_G"]]
+
+#Create a dataframe of recessive_models
+#Create dataframe for the recessive_models output, highlighting the columns first.
+recessive_output_col_df <- as.data.frame(do.call(cbind, recessive_models))
+
+#Create dataframe for the recessive_models output, highlighting the rows next.
+recessive_output_df <- as.data.frame(do.call(cbind, recessive_models))
+View(recessive_output_df)
+
+###########EXPORT TO EXCEL##################
+####DONT KNOW HOW TO DO ################
+
+#############MAGMA GENES ################################
+#Import MAGMA file to R 
+MAGMA_GENES <- read.delim("E:/Cardiff/PhD_Project/Chris_alleles/MAGMA/MAGMA_GENES.out")
+>   View(MAGMA_GENES)
+
+#Compare P-MULTI value to those of Chris's draft.
