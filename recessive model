@@ -48,7 +48,7 @@ recessive_output_df <- as.data.frame(do.call(cbind, recessive_models))
 View(recessive_output_df)
 
 ###########EXPORT TO EXCEL##################
-####DONT KNOW HOW TO DO ################
+
 
 #############MAGMA GENES ################################
 #Import MAGMA file to R 
